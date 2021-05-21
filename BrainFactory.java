@@ -16,15 +16,15 @@ public class BrainFactory
      * @return a list of referenes to objects whose classes implement the Brain
      *      interface
      */
-    public static ArrayList<Brain> createBrains()
+    /*public static ArrayList<Brain> createBrains()
     {
-        /*
+        *//*
          * TODO: add instances of SimpleBrain and SmallBrain to the list.
          * 
          * If you do the BigBrain extension, also add an instance of BigBrain to
          *      the list.
-         */
+         *//*
         
         
-    }
+    }*/
 }

@@ -44,6 +44,25 @@ public final class Piece {
     private Piece(Point[] points)
     {
         // TODO: implement constructor
+        this.body = points;
+
+        double maxX = -1; double maxY = -1;
+        for (Point p : points) {
+            if (p.getX() > maxX) maxX = p.getX();
+            if (p.getY() > maxY) maxY = p.getY();
+        }
+
+        this.width = (int) maxX; this.height = (int) maxY;
+
+        this.skirt = new int[this.width];
+
+        for (int i = 0; i < this.width; i++) {
+            for (Point p : points) {
+                if (p.getX() == i && p.getY() < this.skirt[i]) {
+                    this.skirt[i] = (int) p.getY();
+                }
+            }
+        }
     }   
 
     /**
