@@ -173,6 +173,10 @@ public class Piece {
         String str = "";
 
         // TODO: build a string that contains all of the attributes of this Piece
+        str += "Body: " + this.body.toString();
+        str += "Skirt: " + this.skirt.toString();
+        str += "Width: " + this.width;
+        str += "Height: " + this.height;
 
         return str;
     }
@@ -230,24 +234,27 @@ public class Piece {
             // TODO: step 1: reflect across the line y = x
             for (Point p : rotatedPoints) {
                 int tempX = (int) p.getX();
-                int tempY = (int) p.getY();
-                p.x = tempY;
+                p.x = (int) p.getY();
                 p.y = tempX;
             }
 
             // TODO: step 2: reflect across y axis
             for (Point p : rotatedPoints) {
                 int tempX = (int) p.getX();
-                int tempY = (int) p.getY();
                 p.x = tempX * -1;
-                p.y = tempY * -1;
             }
 
             // TODO: step 3: translate right
+            int minX = Integer.MAX_VALUE; int minY = Integer.MAX_VALUE;
+            for (Point p : rotatedPoints) {
+                if (p.getX() < minX) minX = (int) p.getX();
+                if (p.getY() < minY) minY = (int) p.getY();
+            }
+
             for (Point p : rotatedPoints) {
                 int tempX = (int) p.getX();
                 int tempY = (int) p.getY();
-                p.x = tempX + 1;
+                p.x = tempX + Math.abs(minX);
                 p.y = tempY;
             }
 
