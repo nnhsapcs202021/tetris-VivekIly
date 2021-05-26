@@ -10,10 +10,10 @@ import java.util.StringTokenizer;
  * Each piece is defined by the blocks that make up its body.
  * See the lab document for an overview.
  * 
- * @author Nick Parlante
- * @version    1.0, Mar 1, 2001
+ * @author Vivek Ily
+ * @version May 26th, 2021
  */
-public final class Piece {
+public class Piece {
     /*
      * Implementation hints:
      *  -The starter code does out a few simple things for you
@@ -41,8 +41,7 @@ public final class Piece {
      * 
      * @param points    array of points that make up this Piece's body
      */
-    private Piece(Point[] points)
-    {
+    private Piece(Point[] points) {
         // TODO: implement constructor
         this.body = points;
 
@@ -52,9 +51,13 @@ public final class Piece {
             if (p.getY() > maxY) maxY = p.getY();
         }
 
-        this.width = (int) maxX; this.height = (int) maxY;
+        this.width = (int) maxX + 1; this.height = (int) maxY + 1;
 
         this.skirt = new int[this.width];
+
+        for (int i = 0; i < this.skirt.length; i++) {
+            this.skirt[i] = Integer.MAX_VALUE;
+        }
 
         for (int i = 0; i < this.width; i++) {
             for (Point p : points) {
@@ -70,8 +73,7 @@ public final class Piece {
      * 
      * @return the width of the piece measured in blocks
      */
-    public int getWidth()
-    {
+    public int getWidth() {
         return this.width;
     }
 
@@ -80,8 +82,7 @@ public final class Piece {
      * 
      * @return the height of the piece measured in blocks
      */
-    public int getHeight()
-    {
+    public int getHeight() {
         return this.height;
     }
 
@@ -91,8 +92,7 @@ public final class Piece {
      * 
      * @return a reference to this piece's body
      */
-    public Point[] getBody()
-    {
+    public Point[] getBody() {
         return this.body;
     }
 
@@ -105,8 +105,7 @@ public final class Piece {
      * 
      * @return a reference to this piece's skirt
      */
-    public int[] getSkirt()
-    {
+    public int[] getSkirt() {
         return this.skirt;
     }
 
@@ -122,8 +121,7 @@ public final class Piece {
      *  @return a reference to a Piece that is 90 degrees counter-clockwise
      *      rotated from this Piece
      */ 
-    public Piece nextRotation()
-    {
+    public Piece nextRotation() {
         return this.next;
     }
 
@@ -138,8 +136,7 @@ public final class Piece {
      *  @return true if two pieces are the same
      */
     @Override
-    public boolean equals(Object other)
-    {
+    public boolean equals(Object other) {
         // self check
         if(this == other)
         {
@@ -173,8 +170,7 @@ public final class Piece {
      * @return the attributes of the Piece as a String
      */
     @Override
-    public String toString()
-    {
+    public String toString() {
         String str = "";
         
         // TODO: build a string that contains all of the attributes of this Piece
@@ -220,8 +216,7 @@ public final class Piece {
      *                  rotations
      *  @return a reference to the specified piece
      */
-    private static Piece pieceRow(Piece firstPiece)
-    {
+    private static Piece pieceRow(Piece firstPiece) {
         Piece piece = firstPiece;
         
         System.out.println("\nfirst piece: " + piece);
@@ -269,8 +264,7 @@ public final class Piece {
      * Given a string of x,y pairs ("0 0   0 1 0 2 1 0"), parses the points into
      *      a Point[] array.
      */
-    private static Point[] parsePoints(String string)
-    {
+    private static Point[] parsePoints(String string) {
         ArrayList<Point> points = new ArrayList();
         StringTokenizer tok = new StringTokenizer(string);
         try
